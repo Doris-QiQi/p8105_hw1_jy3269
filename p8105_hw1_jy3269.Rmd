@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: github_document
 ---
 
-load Tidyverse package 
+#### Load Tidyverse package 
 ```{r,results='hide',warning=FALSE,message=FALSE}
 library(tidyverse)
 ```
@@ -13,10 +13,10 @@ library(tidyverse)
 
 ## Problem 1
 
-#### Load the `Penguins` data set
+#### Load the `penguins` data set from the `palmerpenguins` package
 ```{r}
-data("penguins", package = "palmerpenguins")
-print(penguins)
+data("penguins", package = "palmerpenguins")   # load the penguins data set 
+print(penguins)                                # show the dataframe
 ```
 
 #### Description of the `Penguins`data set
@@ -31,14 +31,82 @@ print(penguins)
 #### Scatter Plot
 ```{r}
 ggplot(penguins,aes(x = flipper_length_mm,y = bill_length_mm,colour = species)) + geom_point()
+                                             # make a scatter plot
 
-ggsave("scatter_plot_flipper_vs_bill.pdf")
- 
+ggsave("scatter_plot_flipper_vs_bill.pdf")   # save the plot in pdf format
+
 ```
 
 
 ## Problem 2
 
+#### Create a dataframe
+```{r}
+df_1 <- tibble(                  # use tibble() to create a dataframe named df_1
+  norm_samp = rnorm(n = 10),     # sample from standard normal distribution
+  logic_vec = norm_samp > 0,     # logical vector
+  char_vec = letters[1:10],      # character vector of the first 10 English letters
+  fac_vec = factor( c("male","female","transgender","male","male","transgender","female","female","female","female"))               # factor vector of 3 types of gender
+)
+ 
+df_1                             # show the created dataframe
+
+```
+
+
+#### Caculate the mean of variables **Before** converting the types
+```{r}
+sample_mean <- mean(pull(df_1,var=1))  # use pull() to extract the variable in df_1
+sample_mean
+
+logic_mean <- mean(pull(df_1,var=2))
+logic_mean
+
+char_mean <- mean(pull(df_1,var=3))
+char_mean
+
+fac_mean <- mean(pull(df_1,var=4))
+fac_mean
+
+```
+
+#### Convert the types of variables
+```{r}
+logic_vec_new <- as.numeric(pull(df_1,var=2))
+logic_vec_new
+
+char_vec_new <- as.numeric(pull(df_1,var=3))
+char_vec_new
+
+fac_vec_new <- as.numeric(pull(df_1,var=4))
+fac_vec_new
+```
+
+
+#### Caculate the mean of variables **After** converting the types
+```{r,echo=FALSE}
+logic_mean_new<-mean(logic_vec_new)
+logic_mean_new
+
+char_mean_new<-mean(char_vec_new)
+char_mean_new
+
+fac_mean_new<-mean(fac_vec_new)
+fac_mean_new
+```
+
+After the `as.numeric()` conversion to the variables:
+1. `r logic_vec` is turned into `r logic_vec_new`
+    *  `TRUE` is given the value of `1` 
+    *  `FALSE` is given the value of `0`
+
+2. `r char_vec` is turned into `r char_vec_new`
+    The warning shows that the 
+
+3. `r fac_vec` is turned into `r fac_vec_new`
+   *  `male` is given the value of `2`
+   *  `female` is given the value of `1`
+   *  `transgender` is given the value of `3`
 
 
 
