@@ -1,2 +1,2 @@
 # p8105_hw1_jy3269
-P8105 hw1 -- Building Blocks
+p8105 HW1 -- Building Blocks
